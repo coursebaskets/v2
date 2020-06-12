@@ -80,6 +80,7 @@
                     },
                     error: function (xhr, status, error) {
                         if (attempt > 5){
+                            question_elem.style.background = "rgba(255, 255, 255, .35)";
                             alert("Oops! Something went wrong. Please try again later or send message manually to your teacher <3 Here is the transcript: " + saved_question)
                             question_elem.placeholder = "Question not sent. Type and press enter to ask another.";
                         }
@@ -127,6 +128,7 @@
                       },
                       error: function (xhr, status, error) {
                           if (attempt > 5){
+                              gratitude_elem.style.background = "rgba(220, 220, 220, .25)";
                               alert("Oops! Something went wrong. Please try again later or send message manually to your teacher <3 Here is the transcript: " + saved_gratitude)
                               gratitude_elem.placeholder = "Gratitude not sent. Type and press enter to ask another.";
                           }
