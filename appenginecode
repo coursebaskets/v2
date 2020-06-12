@@ -1,0 +1,102 @@
+
+const express = require("express");
+const fs = require("fs");
+const bodyParser = require("body-parser");
+
+// Include custom modules
+const sheets = require("./modules/sheets.module");
+
+// Create the express app
+const app = express();
+app.use(bodyParser.json({ extended: false }));
+
+// Get the spreadsheet ids
+var course_ids = JSON.parse(fs.readFileSync("course_ids.json"))
+console.log(course_ids)
+app.get("/", async (req, res) => {
+    try {
+        // Get the body of the message
+        const data = req.query;
+
+        // Validate the input
+        if (!data.cid || !(data.question || data.gratitude)) {
+            res
+              .status(500)
+              .send("Yo - missing required field\n")
+              .end();
+        } else {
+            // Build an array of values for sheets
+            var values = []
+            var sheetName = ""
+            var ts = new Date();
+            var ts_str = ts.toDateString();
+
+            if (data.question){
+                values.push([data.question, ts_str]);
+                sheetName = "Questions"
+            } else {
+                values.push([data.gratitude, ts_str]);
+                sheetName = "Gratitude"
+            }
+            // Auth with google
+            await sheets.auth();
+            // Update spreadsheet
+            const spreadsheetId = course_ids[data.cid];
+            await sheets.writeToSheet(spreadsheetId, sheetName, values);
+        }
+        // Send back a success message
+        res
+          .status(200)
+          .send("Accepted\n")
+          .end();
+    } catch (error) {
+        // https://thecodebarbarian.com/80-20-guide-to-express-error-handling
+        console.log(error)
+        res
+          .status(500)
+          .send(error.toString() + "\n")
+          .end();
+    }
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}`);
+});
+
+
+{
+    "1": "1k2hsaZ__Xe_4B4CMLvoHwdDhs34KfCpUDclRAzo8RlU",
+    "2": "14xqgmSHWtBuZtgNxNWZJVTupYz6gykgJFhNLRjDHrr4"
+}
+
+const fs = require("fs");
+const google = require("googleapis").google;
+
+module.exports = {
+  auth: async function() {
+    // Load the key
+    const key = JSON.parse(fs.readFileSync("./keys/key.json").toString());
+    // Auth using the key
+    const auth = await google.auth.fromJSON(key);
+    // Add read / write spreadsheets scope to our auth client
+    auth.scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    // Create an instance of sheets to a scoped variable
+    this.sheets = await google.sheets({ version: "v4", auth });
+    console.log("Authed with google and instantiated google sheets");
+  },
+  writeToSheet: async function(spreadsheetId, sheetName, values) {
+    // Create the resource for google sheets
+    const resource = {
+      values
+    };
+    // Write out to the spreadsheet
+    const res = await this.sheets.spreadsheets.values.append({
+      spreadsheetId: spreadsheetId,
+      range: `${sheetName}!A:A`,
+      valueInputOption: "RAW",
+      resource: resource
+    });
+    console.log("Updated spreadsheet!");
+  }
+};
