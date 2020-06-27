@@ -59,7 +59,7 @@
         if (event.keyCode === 13) {
             question_elem.blur();
             var saved_question = question_elem.value
-            var url = base + '&question=' +  encodeURIComponent(question_elem.value.trim())
+            var url = base + '&question=' +  encodeURIComponent(question_elem.value.trim() + " ")
             question_elem.value = "";
             question_elem.style.background = "rgba(255, 255, 255, 0)";
             question_elem.placeholder = "";
@@ -106,7 +106,7 @@
           if (event.keyCode === 13) {
               gratitude_elem.blur();
               var saved_gratitude = gratitude_elem.value
-              var url = base + '&gratitude=' +  encodeURIComponent(gratitude_elem.value.trim())
+              var url = base + '&gratitude=' +  encodeURIComponent(gratitude_elem.value.trim() + " ")
               gratitude_elem.value = "";
               gratitude_elem.style.background = "rgba(255, 255, 255, 0)";
               gratitude_elem.placeholder = "";
