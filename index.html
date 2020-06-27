@@ -11,7 +11,7 @@
         var pos = 0;
         var id = setInterval(frame, 25);
         function frame() {
-          if (pos == 55) {
+          if (pos == 65) {
             clearInterval(id);
             elem.style.display = "none"
             callback()
@@ -81,10 +81,11 @@
                     error: function (xhr, status, error) {
                         if (attempt > 5){
                             question_elem.style.background = "rgba(255, 255, 255, .35)";
-                            alert("Oops! Something went wrong. Please try again later or send message manually to your teacher <3 Here is the transcript: " + saved_question)
+                            alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_question)
                             question_elem.placeholder = "Question not sent. Type and press enter to ask another.";
                         }
                         else {
+                            question_elem.style.background = "rgba(255, 255, 255, .35)";
                             question_elem.placeholder = "Processing... experiencing some traffic.";
                             console.log("Trying again " + item)
                             setTimeout(function(){loopedcall(item, attempt + 1)}, 1000*(attempt+1))
@@ -107,7 +108,7 @@
               var saved_gratitude = gratitude_elem.value
               var url = base + '&gratitude=' +  encodeURIComponent(gratitude_elem.value.trim())
               gratitude_elem.value = "";
-              gratitude_elem.style.background = "rgba(220, 220, 220, 0)";
+              gratitude_elem.style.background = "rgba(255, 255, 255, 0)";
               gratitude_elem.placeholder = "";
               document.getElementById('gratitudecard').style.display = "block";
               myMove("gratitudecard", function(){
@@ -122,17 +123,18 @@
                       data: "{}",
                       
                       success: function (data) {
-                          gratitude_elem.style.background = "rgba(220, 220, 220, .25)";
+                          gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
                           gratitude_elem.placeholder = "Gratitude sent. Type and press enter to ask another.";
                           console.log(data)
                       },
                       error: function (xhr, status, error) {
                           if (attempt > 5){
-                              gratitude_elem.style.background = "rgba(220, 220, 220, .25)";
-                              alert("Oops! Something went wrong. Please try again later or send message manually to your teacher <3 Here is the transcript: " + saved_gratitude)
+                              gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
+                              alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_gratitude)
                               gratitude_elem.placeholder = "Gratitude not sent. Type and press enter to ask another.";
                           }
                           else {
+                              gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
                               gratitude_elem.placeholder = "Processing... experiencing some traffic.";
                               console.log("Trying again " + item)
                               setTimeout(function(){loopedcall(item, attempt + 1)}, 1000*(attempt+1))
@@ -163,7 +165,7 @@
   }
 
   .bgimg {
-    background-image: url('background_lowres.jpg');
+    background-image: url('background4.jpeg');
     height: 100%;
     background-position: center;
     background-size: cover;
@@ -200,7 +202,7 @@
 
   .botherationbasket {
     position: absolute;
-    top: 35%;
+    top: 60%;
     left:65%;
     right:0;
     bottom:0;
@@ -240,7 +242,7 @@
 
   .questionbasket {
     position: absolute;
-    top: 35%;
+    top: 60%;
     left:0;
     right:65%;
     bottom:0;
@@ -261,7 +263,7 @@
   }
 
   .gratitude {
-    background:rgba(220, 220, 220, 0.25);
+    background:rgba(255, 255, 255, 0.35);
     border-radius: 5px;
     resize: none;
     outline:none;
@@ -280,7 +282,7 @@
 
   .gratitudebasket {
     position: absolute;
-    top: 35%;
+    top: 60%;
     left:0%;
     right:0%;
     bottom:0%;
@@ -302,11 +304,11 @@
   
   .aollogo {
     position: absolute;
-    top: 90%;
+    top: 0%;
     left:90%;
-    right:0%;
-    bottom:0%;
-    width:5%;
+    right:2%;
+    bottom:90%;
+    width:7%;
     margin:auto;
     display:block;
   }
