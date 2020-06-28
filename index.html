@@ -88,7 +88,7 @@
                             question_elem.style.background = "rgba(255, 255, 255, .35)";
                             question_elem.placeholder = "Processing... experiencing some traffic.";
                             console.log("Trying again " + item)
-                            setTimeout(function(){loopedcall(item, attempt + 1)}, 1000*(attempt+1))
+                            setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                         }
                         console.log(xhr)
                         console.log(status)
@@ -137,7 +137,7 @@
                               gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
                               gratitude_elem.placeholder = "Processing... experiencing some traffic.";
                               console.log("Trying again " + item)
-                              setTimeout(function(){loopedcall(item, attempt + 1)}, 1000*(attempt+1))
+                              setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                           }
                       }
                       })
