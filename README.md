@@ -1,4 +1,10 @@
-Fun project for retreats which need question, gratitude, and botheration baskets! This is a modification of the "all/" repo using Google Apps Engine. 
+Fun project for retreats which need question, gratitude, and botheration baskets! This is a modification of the "all/" repo (the first version of this website) using Google Apps Engine. 
+
+If you'd like to add your own front end, please feel free to make a pull request. I'll then assign you a particular "id" number which they can attach to the basket link they send to participants. Then, when questions/gratitudes are posted, they'll be sent to the backend app which will populate entries on a unique spreadsheet corresponding to the id.
+
+Example: http://coursebaskets.github.io/v2/?cid=1
+Questions and gratitudes posted here go to a spreadsheet with id=1. This spreadsheet is shared with the teacher/organize of the course corresponding to that id.
+
 
 Background Image:  
 https://pixabay.com/photos/pier-jetty-wood-water-trees-1209549/  
