@@ -34,7 +34,7 @@
               myMove("botherationcard", function(){
                 document.getElementById('botherationcard').style.top = "-30%";
                 botheration_elem.style.background = "rgba(255, 255, 255, .35)";
-                botheration_elem.placeholder = "Dropped! Type and press enter to drop another.";
+                botheration_elem.placeholder = "Enviado! Escriba y aprete enter para enviar otra./Enviado! Digite e aperte enter para enviar outra./Dropped! Type and press enter to drop another.";
               })
             }
         });
@@ -75,19 +75,19 @@
                     data: "{}",
                     success: function (data) {
                         question_elem.style.background = "rgba(255, 255, 255, .35)";
-                        question_elem.placeholder = "Question sent. Type and press enter to ask another.";
+                        question_elem.placeholder = "Pregunta enviada. Digita y aprete enter para enviar otra/Pergunta enviada. Digite e aperte enter para enviar outra/Question sent. Type and press enter to ask another.";
                         console.log(data)
                     },
                     error: function (xhr, status, error) {
                         if (attempt > 5){
                             question_elem.style.background = "rgba(255, 255, 255, .35)";
-                            alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_question)
-                            question_elem.placeholder = "Question not sent. Type and press enter to ask another.";
+                            alert("Oops! Algo salio mal/Oops! Algo deu errado./Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_question)
+                            question_elem.placeholder = "Pregunta no enviada/Pergunta nao enviada/Question not sent. Type and press enter to ask another.";
                         }
                         else {
                             question_elem.style.background = "rgba(255, 255, 255, .35)";
-                            question_elem.placeholder = "Processing... experiencing some traffic.";
-                            console.log("Trying again " + item)
+                            question_elem.placeholder = "Procesando ... experimentando trafico./Processing... experiencing some traffic.";
+                            console.log("Vuelva a intentar/Trying again " + item)
                             setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                         }
                         console.log(xhr)
@@ -124,19 +124,19 @@
                       
                       success: function (data) {
                           gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
-                          gratitude_elem.placeholder = "Gratitud enviada. Presiona enter para enviar otro.";
+                          gratitude_elem.placeholder = "Agradecimiento enviado. Escriba y presione enter para enviar otro./Gratitude sent. Type and press enter to send another.";
                           console.log(data)
                       },
                       error: function (xhr, status, error) {
                           if (attempt > 5){
                               gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
-                              alert("Oops! Algo salio mal. Por favor vuelve a intentar o enviale un mensaje personal a tu instructor..\n\nYour card: " + saved_gratitude)
-                              gratitude_elem.placeholder = "Agradecimiento no enivado. Por favor vuelva a enviarlo. not sent.";
+                              alert("Oops! Algo salio mal/Oops! Algo deu errado./Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_gratitude)
+                              gratitude_elem.placeholder = "Agradecimiento no enviado. Escriba y presione enter para enviar de nuevo./Gratitude not sent. Type and press enter to ask another.";
                           }
                           else {
                               gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
-                              gratitude_elem.placeholder = "Procesando ... experimentando mucho trafico.";
-                              console.log("Vuelve a intentar " + item)
+                              gratitude_elem.placeholder = "Procesando/Processing... experiencing some traffic.";
+                              console.log("Trying again " + item)
                               setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                           }
                       }
@@ -324,15 +324,15 @@
 
   <div class="bgimg">
     <div class="text-container">
-    <textarea class="botheration" id="botheration" placeholder="Escribe tus molestias y presiona enter para dejarlas ir - las molestias no se guardaran."></textarea>
-    <textarea class="gratitude" id="gratitude" placeholder="Expresa tu agradecimiento y presiona enter para enviarlo."></textarea>
-    <textarea class="question" id="question" placeholder="Escribe tu pregunta y presiona enter para dejarlo ir."></textarea>
+    <textarea class="botheration" id="botheration" placeholder="Escribe aquí tus molestias (Presione enter para dejarlas ir, no seran guaradas )/Digite aqui os seus aborrecimentos. (Aperte enter para deixar ir, os aborrecimentos não serão salvos ou enviados por e-mail)/Type your botherations here and press enter to drop - botherations won't be saved."></textarea>
+    <textarea class="gratitude" id="gratitude" placeholder="Expresa tu agradecimiento y presiona enter para enviar/Digite aqui por quais coisas você é grato (Aperte enter para enviar)/Type your gratitude here and press enter to send."></textarea>
+    <textarea class="question" id="question" placeholder="Escribe tu pregunta aquí y presiona enter para enviar /Digite sua pergunta aqui e aperte o enter para enviar/Type your question here and press enter to ask."></textarea>
     </div>
-    <img class="botherationbasket" src="canasta MOLESTIAS.png" alt="botheration basket" id="botherationbasket">
+    <img class="botherationbasket" src="Molestias.png" alt="botheration basket" id="botherationbasket">
     <img class="botherationcard" id="botherationcard" src="card5.png">
-    <img class="gratitudebasket" src="Canasta AGRADECIMIENTO.png" alt="gratitude basket" id="gratitudebasket">
+    <img class="gratitudebasket" src="Agradecimiento.png" alt="gratitude basket" id="gratitudebasket">
     <img class="gratitudecard" id="gratitudecard" src="card5.png">
-    <img class="questionbasket" src="Canasta Preguntas.png" alt="botheration basket" id="questionbasket">
+    <img class="questionbasket" src="Preguntas.png" alt="botheration basket" id="questionbasket">
     <img class="questioncard" id="questioncard" src="card5.png">
     <img class="aollogo" id="aollogo" src="aollogo.png">
   </div>
