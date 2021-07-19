@@ -86,7 +86,7 @@
                         }
                         else {
                             question_elem.style.background = "rgba(255, 255, 255, .75)";
-                            question_elem.placeholder = "Processing... experiencing some traffic.";
+                            question_elem.placeholder = "Processing...";
                             console.log("Trying again " + item)
                             setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                         }
@@ -135,7 +135,7 @@
                           }
                           else {
                               gratitude_elem.style.background = "rgba(255, 255, 255, .75)";
-                              gratitude_elem.placeholder = "Processing... experiencing some traffic.";
+                              gratitude_elem.placeholder = "Processing...";
                               console.log("Trying again " + item)
                               setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                           }
@@ -165,7 +165,7 @@
   }
 
   .bgimg {
-    background-image: url('background_5.jpeg');
+    background-image: url('background_4.jpeg');
     height: 100%;
     background-position: center;
     background-size: cover;
