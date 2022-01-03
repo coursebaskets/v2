@@ -58,14 +58,14 @@
                           document.getElementById('questioncard').style.top = "-30%";
                         })
                         question_elem.style.background = "rgba(255, 255, 255, .75)";
-                        question_elem.placeholder = "Question sent. Type and press enter to ask another.";
+                        question_elem.placeholder = "Question sent. Type and press enter/return/go to ask another.";
                         console.log(data)
                     },
                     error: function (xhr, status, error) {
                         if (attempt > 2){
                             question_elem.style.background = "rgba(255, 255, 255, .75)";
                             alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_question)
-                            question_elem.placeholder = "Question not sent. Type and press enter to ask another.";
+                            question_elem.placeholder = "Question not sent. Type and press enter/return/go to ask another.";
                         }
                         else {
                             console.log("Trying again " + item)
@@ -230,7 +230,7 @@
 
   <div class="bgimg">
     <div class="text-container">
-    <textarea class="question" id="question" placeholder="Type your question here and press enter to ask."></textarea>
+    <textarea returnKeyType="go" class="question" id="question" placeholder="Type your question here and press enter/return/go to ask."></textarea>
     </div>
     <img class="questionbasket" src="questionbasket_2.png" alt="botheration basket" id="questionbasket">
     <img class="questioncard" id="questioncard" src="card5.png">
