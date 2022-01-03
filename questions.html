@@ -34,54 +34,69 @@
       }
 
       var cid = getParameterByName('cid')
+      cid = 1
       base = "https://baskets-npm.wl.r.appspot.com/?cid=" + cid
+
+      function submitQuestion() {
+        question_elem = document.getElementById("question");
+          question_elem.blur();
+          var saved_question = question_elem.value
+          var url = base + '&question=' +  encodeURIComponent(question_elem.value.trim() + " ")
+          question_elem.value = "";
+          question_elem.placeholder = "Processing...";
+          function loopedcall(item, attempt){
+              $.ajax({
+                  url: item,
+                  method: "GET",
+                  dataType: "json",
+                  data: "{}",
+                  success: function (data) {
+                      question_elem.style.background = "rgba(255, 255, 255, 0)";
+                      document.getElementById('questioncard').style.display = "block";
+                      myMove("questioncard", function(){
+                        document.getElementById('questioncard').style.top = "-30%";
+                      })
+                      question_elem.style.background = "rgba(255, 255, 255, .75)";
+                      question_elem.placeholder = "Question sent! Type to ask another.";
+                      console.log(data)
+                  },
+                  error: function (xhr, status, error) {
+                      if (attempt > 2){
+                          question_elem.style.background = "rgba(255, 255, 255, .75)";
+                          alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour question: " + saved_question)
+                          question_elem.placeholder = "Question not sent. Type to try again.";
+                      }
+                      else {
+                          console.log("Trying again " + item)
+                          setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
+                      }
+                      console.log(xhr)
+                      console.log(status)
+                      console.log(error)
+                  }
+                  })
+              }
+          loopedcall(url, 0)
+      }
+
+      basket_elem = document.getElementById("questionbasket");
+      basket_elem.addEventListener("click", function() {
+          submitQuestion();
+      });
 
       question_elem = document.getElementById("question");
       question_elem.addEventListener("keyup", function(event) {
         event.preventDefault();
         if (event.keyCode === 13) {
-            question_elem.blur();
-            var saved_question = question_elem.value
-            var url = base + '&question=' +  encodeURIComponent(question_elem.value.trim() + " ")
-            question_elem.value = "";
-            question_elem.placeholder = "Processing...";
-            function loopedcall(item, attempt){
-                $.ajax({
-                    url: item,
-                    method: "GET",
-                    dataType: "json",
-                    data: "{}",
-                    success: function (data) {
-                        question_elem.style.background = "rgba(255, 255, 255, 0)";
-                        document.getElementById('questioncard').style.display = "block";
-                        myMove("questioncard", function(){
-                          document.getElementById('questioncard').style.top = "-30%";
-                        })
-                        question_elem.style.background = "rgba(255, 255, 255, .75)";
-                        question_elem.placeholder = "Question sent. Type and press enter/return/go to ask another.";
-                        console.log(data)
-                    },
-                    error: function (xhr, status, error) {
-                        if (attempt > 2){
-                            question_elem.style.background = "rgba(255, 255, 255, .75)";
-                            alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_question)
-                            question_elem.placeholder = "Question not sent. Type and press enter/return/go to ask another.";
-                        }
-                        else {
-                            console.log("Trying again " + item)
-                            setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
-                        }
-                        console.log(xhr)
-                        console.log(status)
-                        console.log(error)
-                    }
-                    })
-                }
-            loopedcall(url, 0)
+            submitQuestion()
             }
         });
-    
+
+
+
     };
+
+
   </script>
   </head>
 
@@ -120,7 +135,8 @@
 
   .question {
     background:rgba(255, 255, 255, 0.75);
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     resize: none;
     outline:none;
     border: 0 none;
@@ -230,8 +246,8 @@
 
   <div class="bgimg">
     <div class="text-container">
-    <textarea returnKeyType="go" class="question" id="question" placeholder="Type your question here and press enter/return/go to ask."></textarea>
-    </div>
+    <textarea class="question" id="question" placeholder="Type your question here. To submit, press the enter/return key or click the question basket!"></textarea>
+    </div>    
     <img class="questionbasket" src="questionbasket_2.png" alt="botheration basket" id="questionbasket">
     <img class="questioncard" id="questioncard" src="card5.png">
     <a href="https://www.artofliving.org/us-en"><img class="aollogo" id="aollogo" src="aollogo.png"></a>
