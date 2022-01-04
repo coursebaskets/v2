@@ -29,3 +29,8 @@ Many, many SO, w3, and tutorial posts used in quickly building this. I took code
 Basket and background images in gp.html provided by Alex M.
 
 For different dimensions per device, used media setting as per here: https://stackoverflow.com/questions/21075983/how-to-use-particular-css-styles-based-on-screen-size-device
+
+--
+
+Flower image: https://pngtree.com/freepng/colored-watercolor-flowers_2379320.html
+Put the attribution in very small font under flower
