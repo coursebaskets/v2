@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    window.onload = function() {
+      // Code from: https://www.w3schools.com/howto/howto_js_animate.asp
+      function myMove(myname, callback) {
+        var elem = document.getElementById(myname);   
+        var pos = 0;
+        var id = setInterval(frame, 25);
+        function frame() {
+          if (pos == 65) {
+            clearInterval(id);
+            elem.style.display = "none"
+            callback()
+          } else {
+            pos++; 
+            elem.style.top = (pos-30) + '%'; 
+          }
+        }
+      }
+
+      // Code from: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+      function getParameterByName(name, url) {
+          if (!url) url = window.location.href;
+          name = name.replace(/[\[\]]/g, '\\$&');
+          var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+              results = regex.exec(url);
+          if (!results) return null;
+          if (!results[2]) return '';
+          return decodeURIComponent(results[2].replace(/\+/g, ' '));
+      }
+
+      var cid = getParameterByName('cid')
+      base = "https://baskets-npm.wl.r.appspot.com/?cid=" + cid
+
+      function submitQuestion() {
+        question_elem = document.getElementById("question");
+          question_elem.blur();
+          var saved_question = question_elem.value
+          var url = base + '&question=' +  encodeURIComponent(question_elem.value.trim() + " ")
+          question_elem.value = "";
+          question_elem.placeholder = "Processing...";
+          function loopedcall(item, attempt){
+              $.ajax({
+                  url: item,
+                  method: "GET",
+                  dataType: "json",
+                  data: "{}",
+                  success: function (data) {
+                      question_elem.style.background = "rgba(255, 255, 255, 0)";
+                      document.getElementById('questioncard').style.display = "block";
+                      myMove("questioncard", function(){
+                        document.getElementById('questioncard').style.top = "-30%";
+                      })
+                      question_elem.style.background = "rgba(255, 255, 255, .75)";
+                      question_elem.placeholder = "Question sent! Type to ask another.";
+                      console.log(data)
+                  },
+                  error: function (xhr, status, error) {
+                      if (attempt > 2){
+                          question_elem.style.background = "rgba(255, 255, 255, .75)";
+                          alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour question: " + saved_question)
+                          question_elem.placeholder = "Question not sent. Type to try again.";
+                      }
+                      else {
+                          console.log("Trying again " + item)
+                          setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
+                      }
+                      console.log(xhr)
+                      console.log(status)
+                      console.log(error)
+                  }
+                  })
+              }
+          loopedcall(url, 0)
+      }
+
+      basket_elem = document.getElementById("questionbasket");
+      basket_elem.addEventListener("click", function() {
+          submitQuestion();
+      });
+
+      question_elem = document.getElementById("question");
+      question_elem.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            submitQuestion()
+            }
+        });
+
+
+
+    };
+
+
+  </script>
+  </head>
+
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <style>
+  p.small {
+  line-height: 0.6;
+  }
+
+  p.big {
+  line-height: 1.8;
+  }
+
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .bgimg {
+    background-image: url('background_awaken_lowres_medium.jpeg');
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 25px;
+    display: block;
+  }
+
+  .text-container {
+    background: transparent;
+    height: 100%;
+    position: relative;
+  }
+
+  .question {
+    background:rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+    resize: none;
+    outline:none;
+    border: 0 none;
+    height: 15%;
+    top: 20%;
+    width: 21%;
+    position: absolute;
+    right: 38.5%;
+    padding: .8%;
+    text-align: center;
+    color: black;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.2vw;
+    overflow: auto;
+  }
+
+  .questionbasket {
+    position: absolute;
+    top: 70%;
+    left:1%;
+    right:0%;
+    bottom:0%;
+    width:20%;
+    margin:auto;
+    display:block;
+  }
+
+  .questioncard {
+    position: absolute;
+    top: -35%;
+    left:1%;
+    right:0%;
+    bottom:0%;
+    width:5%;
+    margin:auto;
+    display:none;
+  }
+  
+  .aollogo {
+    position: absolute;
+    top: 0%;
+    left:90%;
+    right:1%;
+    bottom:90%;
+    width:6%;
+    margin:auto;
+    display:block;
+  }
+  
+  textarea::placeholder {
+    color: black;
+    font-weight: 500;
+  }
+
+  @media(max-width:650px) {
+    .questionbasket {
+      top: 60%;
+      width:60%;
+      height:auto;
+      margin:auto;
+      display:block;
+    }
+    .question {
+      background:rgba(255, 255, 255, 0.75);
+      border-radius: 5px;
+      resize: none;
+      outline:none;
+      border: 0 none;
+      height: 25%;
+      top: 20%;
+      width: 60%;
+      position: absolute;
+      right: 18%;
+      padding: 3%;
+      text-align: center;
+      color: black;
+      font-family: 'Work Sans', sans-serif;
+      font-size: 4.2vw;
+      overflow: auto;
+    }
+    .questioncard {
+      position: absolute;
+      top: -35%;
+      left:1%;
+      right:0%;
+      bottom:0%;
+      width:20%;
+      margin:auto;
+      display:none;
+    }
+    .aollogo {
+      position: absolute;
+      top: 0%;
+      left:90%;
+      right:1%;
+      bottom:90%;
+      width:6%;
+      margin:auto;
+      display:block;
+    }
+
+  }
+
+  .blink_me {
+    animation: blinker 3s linear infinite;
+    position: absolute;
+    top: 0%;
+    left:85%;
+    bottom:83%;
+    width:8%;
+    margin:auto;
+    display:block;
+  }
+
+  .blink_me_1 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    left:80%;
+    bottom:93%;
+    display:block;
+  }
+
+  .blink_me_2 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    left:70%;
+    bottom:79%;
+    display:block;
+  }
+
+  .blink_me_3 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    left:65%;
+    bottom:83%;
+    display:block;
+  }
+
+  .blink_me_4 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    left:55%;
+    bottom:95%;
+    display:block;
+  }
+  .blink_me_5 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    left:45%;
+    bottom:83%;
+    display:block;
+  }
+  .blink_me_6 {
+    animation: blinker 3s linear infinite;
+    position: absolute;
+    left:35%;
+    bottom:72%;
+    display:block;
+  }
+  .blink_me_7 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    left:40%;
+    bottom:88%;
+    display:block;
+  }
+  .blink_me_8 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    left:65%;
+    bottom:87%;
+    display:block;
+  }
+  .blink_me_9 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    left:40%;
+    bottom:63%;
+    display:block;
+  }
+  .blink_me_10 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    left:55%;
+    bottom:78%;
+    display:block;
+  }
+  .blink_me_11 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    right:80%;
+    bottom:93%;
+    display:block;
+  }
+  .blink_me_12 {
+    animation: blinker 3s linear infinite;
+    position: absolute;
+    right:70%;
+    bottom:79%;
+    display:block;
+  }
+  .blink_me_13 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    right:65%;
+    bottom:83%;
+    display:block;
+  }
+  .blink_me_14 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    right:55%;
+    bottom:95%;
+    display:block;
+  }
+  .blink_me_15 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    right:45%;
+    bottom:83%;
+    display:block;
+  }
+  .blink_me_16 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    right:35%;
+    bottom:72%;
+    display:block;
+  }
+  .blink_me_17 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    right:40%;
+    bottom:88%;
+    display:block;
+  }
+  .blink_me_18 {
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    right:65%;
+    bottom:87%;
+    display:block;
+  }
+  .blink_me_19 {
+    animation: blinker 5s linear infinite;
+    position: absolute;
+    right:50%;
+    bottom:93%;
+    display:block;
+  }
+  .blink_me_20 {
+    /* copied from https://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css-3 */
+    animation: blinker 7s linear infinite;
+    position: absolute;
+    right:55%;
+    bottom:78%;
+    display:block;
+  }
+
+  /* copied from https://stackoverflow.com/questions/16344354/how-to-make-blinking-flashing-text-with-css-3 */
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  </style>
+
+  <body>
+
+  <div class="bgimg">
+    <div class="text-container">
+    <textarea class="question" id="question" placeholder="Type your question here. To submit, press the enter/return key or click the question basket!"></textarea>
+    </div>    
+    <img class="questionbasket" src="questionbasket_gurudev.png" alt="botheration basket" id="questionbasket">
+    <img class="questioncard" id="questioncard" src="card5.png">
+    <a href="https://www.artofliving.org/us-en"><img class="aollogo" id="aollogo" src="aollogo.png"></a>
+
+  </div>
+
+  </body>
+</html>
