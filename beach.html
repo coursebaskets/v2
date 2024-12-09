@@ -33,7 +33,7 @@
               document.getElementById('botherationcard').style.display = "block";
               myMove("botherationcard", function(){
                 document.getElementById('botherationcard').style.top = "-30%";
-                botheration_elem.style.background = "rgba(255, 255, 255, .75)";
+                botheration_elem.style.background = "rgba(255, 255, 255, .35)";
                 botheration_elem.placeholder = "Dropped! Type and press enter to drop another.";
               })
             }
@@ -74,19 +74,19 @@
                     dataType: "json",
                     data: "{}",
                     success: function (data) {
-                        question_elem.style.background = "rgba(255, 255, 255, .75)";
+                        question_elem.style.background = "rgba(255, 255, 255, .35)";
                         question_elem.placeholder = "Question sent. Type and press enter to ask another.";
                         console.log(data)
                     },
                     error: function (xhr, status, error) {
                         if (attempt > 5){
-                            question_elem.style.background = "rgba(255, 255, 255, .75)";
+                            question_elem.style.background = "rgba(255, 255, 255, .35)";
                             alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_question)
                             question_elem.placeholder = "Question not sent. Type and press enter to ask another.";
                         }
                         else {
-                            question_elem.style.background = "rgba(255, 255, 255, .75)";
-                            question_elem.placeholder = "Processing...";
+                            question_elem.style.background = "rgba(255, 255, 255, .35)";
+                            question_elem.placeholder = "Processing... experiencing some traffic.";
                             console.log("Trying again " + item)
                             setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                         }
@@ -123,19 +123,19 @@
                       data: "{}",
                       
                       success: function (data) {
-                          gratitude_elem.style.background = "rgba(255, 255, 255, .75)";
+                          gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
                           gratitude_elem.placeholder = "Gratitude sent. Type and press enter to send another.";
                           console.log(data)
                       },
                       error: function (xhr, status, error) {
                           if (attempt > 5){
-                              gratitude_elem.style.background = "rgba(255, 255, 255, .75)";
+                              gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
                               alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour card: " + saved_gratitude)
                               gratitude_elem.placeholder = "Gratitude not sent. Type and press enter to ask another.";
                           }
                           else {
-                              gratitude_elem.style.background = "rgba(255, 255, 255, .75)";
-                              gratitude_elem.placeholder = "Processing...";
+                              gratitude_elem.style.background = "rgba(255, 255, 255, .35)";
+                              gratitude_elem.placeholder = "Processing... experiencing some traffic.";
                               console.log("Trying again " + item)
                               setTimeout(function(){loopedcall(item, attempt + 1)}, 4000*(attempt+1))
                           }
@@ -165,7 +165,7 @@
   }
 
   .bgimg {
-    background-image: url('background_3.jpeg');
+    background-image: url('background12.jpg');
     height: 100%;
     background-position: center;
     background-size: cover;
@@ -183,7 +183,7 @@
   }
 
   .botheration {
-    background:rgba(255, 255, 255, 0.75);
+    background:rgba(255, 255, 255, 0.35);
     border-radius: 5px;
     border: 0 none;
     resize: none;
@@ -191,8 +191,7 @@
     height: 15%;
     top: 20%;
     width: 20%;
-    right: 7%;
-    padding: .8%;
+    right: 8%;
     position: absolute;
     text-align: center;
     color: black;
@@ -203,8 +202,8 @@
 
   .botherationbasket {
     position: absolute;
-    top: 70%;
-    left:64%;
+    top: 60%;
+    left:65%;
     right:0;
     bottom:0;
     width:20%;
@@ -215,7 +214,7 @@
   .botherationcard {
     position: absolute;
     top: -35%;
-    left:64%;
+    left:65%;
     right:0;
     bottom:0;
     width:5%;
@@ -224,7 +223,7 @@
   }
 
   .question {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.35);
     border-radius: 5px;
     border: 0 none;
     resize: none;
@@ -232,8 +231,7 @@
     height: 15%;
     top: 20%;
     width: 20%;
-    left: 7%;
-    padding: .8%;
+    right: 72%;
     position: absolute;
     text-align: center;
     color: black;
@@ -244,9 +242,9 @@
 
   .questionbasket {
     position: absolute;
-    top: 70%;
+    top: 60%;
     left:0;
-    right:64%;
+    right:65%;
     bottom:0;
     width:20%;
     margin:auto;
@@ -257,7 +255,7 @@
     position: absolute;
     top: -35%;
     left:0;
-    right:64%;
+    right:65%;
     bottom:0;
     width:5%;
     margin:auto;
@@ -265,17 +263,16 @@
   }
 
   .gratitude {
-    background:rgba(255, 255, 255, 0.75);
+    background:rgba(255, 255, 255, 0.35);
     border-radius: 5px;
     resize: none;
     outline:none;
     border: 0 none;
     height: 15%;
     top: 20%;
-    width: 21%;
+    width: 20%;
     position: absolute;
-    right: 38.5%;
-    padding: .8%;
+    right: 40%;
     text-align: center;
     color: black;
     font-family: 'Work Sans', sans-serif;
@@ -285,8 +282,8 @@
 
   .gratitudebasket {
     position: absolute;
-    top: 70%;
-    left:1%;
+    top: 60%;
+    left:0%;
     right:0%;
     bottom:0%;
     width:20%;
@@ -297,7 +294,7 @@
   .gratitudecard {
     position: absolute;
     top: -35%;
-    left:1%;
+    left:0%;
     right:0%;
     bottom:0%;
     width:5%;
@@ -331,11 +328,11 @@
     <textarea class="gratitude" id="gratitude" placeholder="Type your gratitude here and press enter to send."></textarea>
     <textarea class="question" id="question" placeholder="Type your question here and press enter to ask."></textarea>
     </div>
-    <img class="botherationbasket" src="botherationbasket_2.png" alt="botheration basket" id="botherationbasket">
+    <img class="botherationbasket" src="botherationbasket.png" alt="botheration basket" id="botherationbasket">
     <img class="botherationcard" id="botherationcard" src="card5.png">
-    <img class="gratitudebasket" src="gratitudebasket_2.png" alt="gratitude basket" id="gratitudebasket">
+    <img class="gratitudebasket" src="gratitudebasket.png" alt="gratitude basket" id="gratitudebasket">
     <img class="gratitudecard" id="gratitudecard" src="card5.png">
-    <img class="questionbasket" src="questionbasket_2.png" alt="botheration basket" id="questionbasket">
+    <img class="questionbasket" src="questionbasket.png" alt="botheration basket" id="questionbasket">
     <img class="questioncard" id="questioncard" src="card5.png">
     <img class="aollogo" id="aollogo" src="aollogo.png">
   </div>

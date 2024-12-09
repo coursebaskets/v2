@@ -34,7 +34,7 @@
       }
 
       var cid = getParameterByName('cid')
-      base = "https://baskets-npm.wl.r.appspot.com/?cid=" + cid
+      base = "https://app-modgddx4wa-uw.a.run.app/?cid=" + cid
 
       function submitQuestion() {
         question_elem = document.getElementById("question");
@@ -60,7 +60,7 @@
                       console.log(data)
                   },
                   error: function (xhr, status, error) {
-                      if (attempt > 2){
+                      if (attempt > 5){
                           question_elem.style.background = "rgba(255, 255, 255, .75)";
                           alert("Oops! Something went wrong. Please try again later or send message manually to your teacher.\n\nYour question: " + saved_question)
                           question_elem.placeholder = "Question not sent. Type to try again.";
